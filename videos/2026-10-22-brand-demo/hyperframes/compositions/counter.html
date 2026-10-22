@@ -1,0 +1,31 @@
+<template>
+  <style>
+    @font-face { font-family: 'Manrope'; src: url('assets/fonts/Manrope-Variable.ttf') format('truetype'); font-weight: 200 800; }
+    #root { position: absolute; inset: 0; background: #EEEAE2; overflow: hidden; }
+    #counter-box { position: absolute; left: 170px; right: 170px; top: 300px; }
+    #counter-label { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 28px; letter-spacing: 0.12em; color: #2F47FF; text-transform: uppercase; }
+    #counter-num { margin-top: 10px; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 250px; line-height: 1; color: #14161B; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    #counter-track { margin-top: 36px; height: 14px; background: #D9D4C9; }
+    #counter-bar { height: 14px; width: 100%; background: #2F47FF; transform-origin: 0 50%; }
+    #counter-note { margin-top: 26px; font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 36px; color: #14161B; }
+  </style>
+  <div id="root" data-composition-id="counter" data-width="1920" data-height="1080">
+    <div id="counter-box">
+      <div id="counter-label">IPv4 · усіх адрес</div>
+      <div id="counter-num">0</div>
+      <div id="counter-track"><div id="counter-bar"></div></div>
+      <div id="counter-note">Стільки адрес уміщує 32-бітний формат</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const num = document.querySelector("#counter-num");
+    const proxy = { v: 0 };
+    const fmt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    tl.fromTo("#counter-label", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 0.1);
+    tl.fromTo(proxy, { v: 0 }, { v: 4294967296, duration: 1.9, ease: "expo.out", onUpdate: () => { num.textContent = fmt(proxy.v); } }, 0.25);
+    tl.fromTo("#counter-bar", { scaleX: 0 }, { scaleX: 1, duration: 1.9, ease: "expo.out" }, 0.25);
+    tl.fromTo("#counter-note", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 1.0);
+    window.__timelines["counter"] = tl;
+  </script>
+</template>

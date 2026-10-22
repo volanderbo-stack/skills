@@ -17,8 +17,16 @@ videos/**/tmp/
 videos/**/renders/
 videos/**/out/
 
-# Файли Mixkit не можна поширювати
+# Файли Mixkit не можна поширювати (кеш звуків і завантажена музика)
 **/sound-effects-cache/
+videos/**/*.mp3
+videos/**/music/
+
+# Службові папки інструментів
+videos/**/.hyperframes/
+videos/**/check/
+videos/**/review/
+videos/**/stills*.png
 
 # Архіви скілів для claude.ai — генеруються з .claude/skills
 chat-project/3-скіли-zip/

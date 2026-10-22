@@ -1,0 +1,28 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #EEEAE2; overflow: hidden; }
+    #title-cover { position: absolute; inset: 0; background: #2F47FF; transform-origin: 50% 0%; }
+    #title-lines { position: absolute; left: 150px; top: 150px; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 200px; line-height: 1.02; color: #14161B; text-transform: uppercase; }
+    .title-line { display: block; overflow: hidden; }
+    .title-word { display: inline-block; }
+    #title-accent { color: #2F47FF; }
+    #title-tag { position: absolute; right: 120px; bottom: 100px; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 28px; letter-spacing: 0.12em; color: #14161B; text-transform: uppercase; }
+  </style>
+  <div id="root" data-composition-id="title" data-width="1920" data-height="1080">
+    <div id="title-lines">
+      <span class="title-line"><span class="title-word" id="title-w1">Подорож</span></span>
+      <span class="title-line"><span class="title-word" id="title-w2">одного</span></span>
+      <span class="title-line"><span class="title-word" id="title-accent">кліку</span></span>
+    </div>
+    <div id="title-tag">кінетична типографіка</div>
+    <div id="title-cover"></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#title-cover", { scaleY: 1 }, { scaleY: 0, duration: 0.42, ease: "power2.inOut" }, 0);
+    tl.fromTo(["#title-w1", "#title-w2", "#title-accent"], { yPercent: 105 }, { yPercent: 0, duration: 0.6, ease: "expo.out", stagger: 0.1 }, 0.25);
+    tl.fromTo("#title-tag", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 0.9);
+    tl.to(["#title-w1", "#title-w2", "#title-accent", "#title-tag"], { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power3.in", stagger: 0.05 }, 2.6);
+    window.__timelines["title"] = tl;
+  </script>
+</template>

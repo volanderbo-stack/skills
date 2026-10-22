@@ -1,0 +1,23 @@
+/* Бренд «Електрик на кремі» + Oswald. Шляхи відносні до цього файлу (assets/brand/). */
+@font-face { font-family: 'Oswald'; src: url('fonts/Oswald-Variable.ttf') format('truetype'); font-weight: 200 700; font-display: block; }
+@font-face { font-family: 'Manrope'; src: url('fonts/Manrope-Variable.ttf') format('truetype'); font-weight: 200 800; font-display: block; }
+@font-face { font-family: 'JetBrains Mono'; src: url('fonts/JetBrainsMono-Variable.ttf') format('truetype'); font-weight: 100 800; font-display: block; }
+@font-face { font-family: 'Cormorant'; src: url('fonts/Cormorant-Italic-Variable.ttf') format('truetype'); font-weight: 300 700; font-style: italic; font-display: block; }
+
+:root {
+  --brand-bg: #EEEAE2;
+  --brand-surface: #D9D4C9;
+  --brand-ink: #14161B;
+  --brand-blue: #2F47FF;
+  --brand-orange: #E2470F;
+  --brand-on-blue: #FFFFFF;
+
+  --brand-dark-bg: #14161B;
+  --brand-dark-ink: #EEEAE2;
+  --brand-dark-accent-text: #8A98FF;
+
+  --font-head: 'Oswald', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-serif: 'Cormorant', serif;
+}

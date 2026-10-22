@@ -1,0 +1,19 @@
+{
+  "name": "Електрик на кремі + Oswald",
+  "approved": "2026-10-22",
+  "colors": {
+    "bg": "#EEEAE2",
+    "surface": "#D9D4C9",
+    "ink": "#14161B",
+    "accent": "#2F47FF",
+    "accent2": "#E2470F",
+    "onAccent": "#FFFFFF",
+    "dark": { "bg": "#14161B", "ink": "#EEEAE2", "accentText": "#8A98FF" }
+  },
+  "fonts": {
+    "head": { "family": "Oswald", "file": "fonts/Oswald-Variable.ttf", "weights": [600, 700], "case": "uppercase" },
+    "body": { "family": "Manrope", "file": "fonts/Manrope-Variable.ttf", "weights": [500, 700] },
+    "mono": { "family": "JetBrains Mono", "file": "fonts/JetBrainsMono-Variable.ttf", "weights": [500] },
+    "serif": { "family": "Cormorant", "file": "fonts/Cormorant-Italic-Variable.ttf", "style": "italic", "weights": [600, 700] }
+  }
+}

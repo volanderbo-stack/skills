@@ -1,0 +1,24 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #EEEAE2; overflow: hidden; }
+    #sting-mark { position: absolute; left: 50%; top: 300px; width: 150px; height: 150px; margin-left: -75px; background: #2F47FF; }
+    #sting-word { position: absolute; left: 0; right: 0; top: 500px; text-align: center; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 190px; line-height: 1; letter-spacing: 0.01em; color: #14161B; text-transform: uppercase; white-space: nowrap; }
+    #sting-word span { display: inline-block; }
+    #sting-kicker { position: absolute; left: 0; right: 0; top: 730px; text-align: center; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 28px; letter-spacing: 0.14em; color: #2F47FF; text-transform: uppercase; }
+    #sting-flood { position: absolute; inset: 0; background: #2F47FF; transform-origin: 50% 100%; }
+  </style>
+  <div id="root" data-composition-id="sting" data-width="1920" data-height="1080">
+    <div id="sting-mark"></div>
+    <div id="sting-word"><span>M</span><span>o</span><span>t</span><span>i</span><span>o</span><span>n</span><span>&nbsp;</span><span>V</span><span>i</span><span>d</span><span>e</span><span>o</span></div>
+    <div id="sting-kicker">студія · 2026</div>
+    <div id="sting-flood"></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#sting-mark", { scale: 0.35, rotation: -25 }, { scale: 1, rotation: 0, duration: 0.6, ease: "back.out(1.6)" }, 0.1);
+    tl.fromTo("#sting-word span", { opacity: 0.15, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out", stagger: 0.04 }, 0.45);
+    tl.fromTo("#sting-kicker", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 1.1);
+    tl.fromTo("#sting-flood", { scaleY: 0 }, { scaleY: 1, duration: 0.42, ease: "power2.inOut" }, 2.5);
+    window.__timelines["sting"] = tl;
+  </script>
+</template>

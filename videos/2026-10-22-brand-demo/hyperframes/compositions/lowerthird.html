@@ -1,0 +1,28 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #D9D4C9; overflow: hidden; }
+    #lt-head { position: absolute; left: 50%; top: 150px; width: 330px; height: 330px; margin-left: -165px; border-radius: 50%; background: #EEEAE2; opacity: 0.75; }
+    #lt-body { position: absolute; left: 50%; top: 540px; width: 700px; height: 600px; margin-left: -350px; border-radius: 350px 350px 0 0; background: #EEEAE2; opacity: 0.75; }
+    #lt-plate { position: absolute; left: 140px; bottom: 140px; background: #EEEAE2; padding: 26px 46px 28px 50px; }
+    #lt-edge { position: absolute; left: 0; top: 0; bottom: 0; width: 14px; background: #2F47FF; }
+    #lt-name { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 72px; line-height: 1.05; color: #14161B; text-transform: uppercase; white-space: nowrap; }
+    #lt-role { margin-top: 8px; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 28px; letter-spacing: 0.12em; color: #2F47FF; text-transform: uppercase; white-space: nowrap; }
+  </style>
+  <div id="root" data-composition-id="lowerthird" data-width="1920" data-height="1080">
+    <div id="lt-head"></div>
+    <div id="lt-body" data-layout-allow-overflow></div>
+    <div id="lt-plate">
+      <div id="lt-edge"></div>
+      <div id="lt-name">Ім'я Прізвище</div>
+      <div id="lt-role">посада · компанія</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#lt-plate", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.55, ease: "expo.out" }, 0.3);
+    tl.fromTo("#lt-name", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, 0.55);
+    tl.fromTo("#lt-role", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, 0.68);
+    tl.to("#lt-plate", { clipPath: "inset(0 100% 0 0)", duration: 0.3, ease: "power3.in" }, 2.6);
+    window.__timelines["lowerthird"] = tl;
+  </script>
+</template>
