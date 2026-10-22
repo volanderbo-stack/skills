@@ -30,3 +30,7 @@ videos/**/stills*.png
 
 # Архіви скілів для claude.ai — генеруються з .claude/skills
 chat-project/3-скіли-zip/
+
+# Ролик top-ai-tools ведеться окремо — не в цьому репозиторії
+/videos/2026-10-22-top-ai-tools/
+/output/2026-10-22-top-ai-tools-CREDITS.txt
