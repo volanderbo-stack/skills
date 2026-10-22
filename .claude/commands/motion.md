@@ -9,6 +9,6 @@ argument-hint: "[що анімувати: текст, цифри, лого; фо
 - Проєкт: `npx hyperframes init videos/<slug> --non-interactive --resolution landscape` (9:16 → `portrait`). Не запускай команди `skills`.
 - Без зупинок: не пропонуй 3 сюжети на вибір, обери один сам і коротко опиши його.
 - Медіа (звуки, лого) — через `media-use`, тільки безкоштовні шляхи. HeyGen і будь-що платне — лише з мого дозволу.
-- Прозорий оверлей (для вставки в інший монтаж) → `--format mov` (ProRes 4444) у `output/<slug>.mov`; інакше `output/<slug>.mp4` з `--quality delivery`.
+- Рендер завжди `--fps 60` (якщо оверлей лягає на готове відео — fps того відео). Прозорий оверлей (для вставки в інший монтаж) → `--format mov` (ProRes 4444) у `output/<slug>.mov`; інакше `output/<slug>.mp4` з `--quality delivery`.
 - `npx hyperframes check --json` до нуля помилок, `npx hyperframes snapshot` ключових моментів, перегляд кадрів, потім рендер.
 - Онови `ПІДСУМКИ.md`, короткий звіт.

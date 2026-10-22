@@ -8,7 +8,7 @@
 
 Працюй у межах поточної папки проєкту: спочатку перевір наявні файли, стиль бренду й ресурси в `assets/`. Якщо несуттєвих деталей бракує — самостійно обери доречні стандартні варіанти й не зупиняйся для уточнень.
 
-За замовчуванням: MP4, 1920×1080, 30 fps (для Reels/Shorts — 1080×1920).
+За замовчуванням: MP4, 1920×1080, **60 fps** (для Reels/Shorts — 1080×1920, теж 60 fps). Виняток: графіка, що лягає поверх уже знятого відео (B-roll, субтитри, плашки на відзнятому матеріалі), — у fps вихідного відео, щоб рух не смикався.
 
 Створи редаговані файли проєкту, зрендери результат, переглянь прев'ю/кадри, виправ очевидні помилки та повтори рендер. Не перезаписуй вихідні медіафайли — результат зберігай окремо в `output/`.
 
@@ -50,17 +50,23 @@
 - **Бренд затверджено:** `assets/brand/brand.md` (правила), `brand.css` (`@font-face` + змінні), `brand.json` (те саме для коду), шрифти в `assets/brand/fonts/`. Палітра «Електрик на кремі»: фон `#EEEAE2`, поверхня `#D9D4C9`, текст `#14161B`, акцент `#2F47FF`, другий акцент `#E2470F`. Заголовки — Oswald (великі літери), текст — Manrope, мітки — JetBrains Mono, рідкісна «людська» фраза — Cormorant Italic. Застосовуй його завжди замість палітр і шрифтів за замовчуванням зі скілів (`motion-broll`, `explainer-high-energy`, HyperFrames frame-presets тощо), якщо в брифі не сказано інакше. Шрифти вбудовуй з локальних файлів.
 - `videos/<slug>/` — редаговані файли одного відео (проєкт Remotion/HyperFrames, HTML-сторінки, скрипти, проміжні рендери). `slug` = `РРРР-ММ-ДД-коротка-назва` латиницею, наприклад `2026-10-22-promo-kopiyka`.
 - `videos/<slug>/БРИФ.md` — бриф (шаблон: `БРИФ-шаблон.md`). Якщо я дав бриф текстом — збережи його туди.
-- `output/<slug>.mp4` — фінальний рендер. Нова версія → `output/<slug>-v2.mp4` тощо, старі не перезаписуй. Чернетки з `explainer-high-energy` → `output/<slug>-draft.mp4`; фінал промо (`/promo`) — 60 fps.
+- `output/<slug>.mp4` — фінальний рендер. Нова версія → `output/<slug>-v2.mp4` тощо, старі не перезаписуй. Чернетки → `output/<slug>-draft.mp4` (для швидкості можна 30 fps); фінал — завжди 60 fps (крім винятку вище). Перевір fps готового файлу через `ffprobe`.
 - Вихідне відео в `videos/<slug>/` не копіюй — посилайся на файл в `assets/` (виняток: інструмент вимагає копію).
 
 ## Технічні нотатки (Windows)
 
 - Python: `python` (не `python3`). Python-залежності тільки в `.venv` у корені проєкту: `python -m venv .venv`, далі `.venv\Scripts\python -m pip install ...`. Скрипти скілів запускай через `.venv\Scripts\python`.
 - Node-залежності — тільки локально (`npm i` у папці проєкту, без `-g`).
-- Playwright (для `motion-broll` і `explainer-high-energy`): один раз у корені проєкту `npm i -D playwright` і `npx playwright install chromium`. Браузер ляже в `.cache/ms-playwright` проєкту (змінна `PLAYWRIGHT_BROWSERS_PATH` у `.claude/settings.json`). Скрипт `motion-broll/scripts/setup.sh` **не запускай** — він ставить пакети в системний Python; зроби те саме вручну за правилами вище (папки `clips/ dist/ out/ work/` створюй у `videos/<slug>/motion/`).
-- HyperFrames: `HYPERFRAMES_SKIP_SKILLS=1` уже задано в `.claude/settings.json`, щоб `init` не оновлював скіли. Проєкт: `npx hyperframes init videos/<slug> --non-interactive --resolution landscape` (або `portrait`), рендер: `npx hyperframes render videos/<slug> -o output/<slug>.mp4 --quality delivery`.
-- Remotion: проєкт у `videos/<slug>/` через `npx create-video@latest --yes --blank --no-tailwind videos/<slug>`, потім `npm i` у ній. Studio відкривай через `npx remotion studio --no-open` у вбудованому браузері. Рендер: `npx remotion render <CompositionId> ../../output/<slug>.mp4`.
-- `sound-effects/scripts/sound_pass.py` пише тимчасові файли в `/tmp` (на Windows це `C:\tmp`). Копіюй `sound_pass.py` і `report.py` у `videos/<slug>/sound/`, заміни там `/tmp/` на локальну папку `tmp/` і запускай копію. Файли Mixkit (кеш `sound-effects-cache/`, музика) не комітити — вони в `.gitignore`.
+- Playwright (для `motion-broll` і `explainer-high-energy`) уже стоїть у корені проєкту (`npm i -D playwright`). Окремий Chromium **не завантажуй**: рендер іде через встановлений Chrome. Для цього копіюй скрипт рендеру скіла в робочу папку й заміни `chromium.launch(` на `chromium.launch({ channel: 'chrome', … })` (для `motion-broll`: `render.js` і `beats.js`; для `explainer-high-energy`: `render.mjs` із SKILL.md). Скрипт `motion-broll/scripts/setup.sh` **не запускай** — він ставить пакети в системний Python; потрібне налаштуй вручну (папки `clips/ dist/ out/ work/` у `videos/<slug>/broll/`).
+- Шрифти бренду в HTML-скілах: у фрагменті кліпу `motion-broll` залиш плейсхолдери `@font-face … base64,__MANROPE__` і після `build.py` підстав base64 файлів з `assets/brand/fonts/`; у `explainer-high-energy` — `@font-face` з відносним шляхом до `assets/brand/fonts/` (render.mjs відкриває сторінку з доступом до файлів).
+- Частота кадрів при рендері (60 fps):
+  - HyperFrames: `npx hyperframes@<версія з package.json> render <папка> -o <файл> --fps 60 --quality delivery`. У папці, створеній `init`, запускай саме з версією (`hyperframes@0.8.185`), бо `npx hyperframes` без неї бере локальний пакет без CLI і падає. `HYPERFRAMES_SKIP_SKILLS=1` уже задано в `.claude/settings.json`; у фонових командах задавай його явно.
+  - `explainer-high-energy`: фінал `node render.mjs demo.html out.mp4 60 8 <потоки>` (60 fps, 8 підкадрів motion blur), чернетка `30 1 4`.
+  - `motion-broll`: `node render.js dist/<кліп>.html out/<кліп>.mp4 <fps вихідного відео>`; кліп без відео під ним — `60`.
+  - Remotion: `fps={60}` у `<Composition>`, а `durationInFrames` рахуй від 60 fps; рендер `npx remotion render <CompositionId> <файл> --codec=h264 --crf=16`.
+- Remotion: проєкт у `videos/<slug>/remotion/` через `npx create-video@latest --yes --blank --no-tailwind remotion`, потім `npx remotion add @remotion/media @remotion/fonts @remotion/captions`. Шрифти бренду — у `public/fonts/` + `loadFont()` з `@remotion/fonts`. Studio — `npx remotion studio --no-open` у вбудованому браузері. Готові кліпи інших скілів вставляй як `<Video src={staticFile(…)} muted />`.
+- `sound-effects`: Python-залежності вже в `.venv` (librosa працює на Python 3.14). Копіюй `sound_pass.py` і `report.py` у `videos/<slug>/sound/` і у копії: (1) заміни `'/tmp/` на абсолютний шлях до `videos/<slug>/sound/tmp/`; (2) рядок `fps=eval(…)` заміни на розбір `30/1` без `eval` (ffprobe на Windows дописує кому, і скрипт падає). Запускай через Bash з `PYTHONUTF8=1`. Звуки бери з вбудованої CC0-бібліотеки; Mixkit-ефекти (наприклад `typing`) — лише якщо перевірив їхню ліцензію. Файли Mixkit (кеш `sound-effects-cache/`, музика) не комітити — вони в `.gitignore`.
+- Робоча структура складного відео: `videos/<slug>/{hyperframes,promo,broll,remotion,sound}/`, проміжні рендери частин — `videos/<slug>/parts/`, фінал — `output/`. Приклад: `videos/2026-10-22-brand-demo/`.
 
 ## Перевірка перед здачею
 
