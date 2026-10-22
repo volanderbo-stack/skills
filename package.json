@@ -1,0 +1,5 @@
+{
+  "name": "video-skills-project",
+  "private": true,
+  "description": "Робочі інструменти відеопроєкту (Playwright для motion-broll та explainer-high-energy). Залежності ставляться тут, не глобально."
+}

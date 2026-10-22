@@ -3,3 +3,22 @@ output/*.mp4
 output/*.mov
 output/*.webm
 .env
+
+# Локальні інструменти (Python, браузер Playwright)
+.venv/
+.cache/
+
+# Проміжні рендери й тимчасові файли у робочих папках відео
+videos/**/*.mp4
+videos/**/*.mov
+videos/**/*.webm
+videos/**/*.wav
+videos/**/tmp/
+videos/**/renders/
+videos/**/out/
+
+# Файли Mixkit не можна поширювати
+**/sound-effects-cache/
+
+# Архіви скілів для claude.ai — генеруються з .claude/skills
+chat-project/3-скіли-zip/

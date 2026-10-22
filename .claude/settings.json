@@ -1,0 +1,6 @@
+{
+  "env": {
+    "HYPERFRAMES_SKIP_SKILLS": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": "C:\\Users\\utilisateur\\Downloads\\skills\\.cache\\ms-playwright"
+  }
+}
